@@ -12,7 +12,7 @@ struct SwiftUI_Authentication_App: App {
     var body: some Scene {
         WindowGroup {
 //            ContentView()
-            SignInView(email: .constant(""), password: .constant(""), remember: .constant(true), showSignUp: .constant(true))
+            SignInView()
                 .preferredColorScheme(.dark)
         }
     }

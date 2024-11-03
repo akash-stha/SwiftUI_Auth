@@ -12,36 +12,34 @@ struct InfoTFView: View {
     
     var title: String
     @Binding var text: String
-    @FocusState var isActive
+    @FocusState private var isActive: Bool
     
     var body: some View {
-        ZStack(alignment: .leading) {
-            // TextField with conditional placeholder
-            TextField(isActive ? "Enter your email" : "", text: $text)
-                .padding(.horizontal, 10)
-                .frame(maxWidth: .infinity, maxHeight: 55)
-                .focused($isActive)
-                .background(.gray.opacity(0.3), in: RoundedRectangle(cornerRadius: 16))
-                .onChange(of: isActive) { oldValue, newValue in
-                    if newValue {
-                        NotificationCenter.default.post(name: .textFieldFocused, object: nil)
-                    } else {
-                        NotificationCenter.default.post(name: .textFieldUnfocused, object: nil)
+        VStack(alignment: .leading, spacing: 5) {
+            ZStack(alignment: .leading) {
+                TextField(isActive ? "Enter your email" : "", text: $text)
+                    .padding(.horizontal, 10)
+                    .frame(maxWidth: .infinity, maxHeight: 55)
+                    .keyboardType(.emailAddress)
+                    .focused($isActive)
+                    .background(Color.gray.opacity(0.3), in: RoundedRectangle(cornerRadius: 16))
+                    .onChange(of: text) { oldValue, newValue in
+                        
                     }
-                }
-            
-            // Title that moves up when TextField is active or has text
-            Text(title)
-                .font(.system(size: 25))
-                .padding(.horizontal, 10)
-                .offset(y: (isActive || !text.isEmpty) ? -50 : 0) // Adjusted y-offset for floating effect
-                .scaleEffect((isActive || !text.isEmpty) ? 0.8 : 1.0, anchor: .leading) // Shrinks label when it moves up
-                .animation(.spring(), value: isActive || !text.isEmpty)
-                .onTapGesture {
-                    isActive = true
-                }
+                
+                // Title that moves up when TextField is active or has text
+                Text(title)
+                    .font(.system(size: 25))
+                    .padding(.horizontal, 10)
+                    .offset(y: (isActive || !text.isEmpty) ? -50 : 0)
+                    .scaleEffect((isActive || !text.isEmpty) ? 0.8 : 1.0, anchor: .leading)
+                    .animation(.spring(), value: isActive || !text.isEmpty)
+                    .onTapGesture {
+                        isActive = true
+                    }
+            }
+            .padding(.horizontal, 10)
         }
-        .padding(.horizontal, 10)
     }
 }
 

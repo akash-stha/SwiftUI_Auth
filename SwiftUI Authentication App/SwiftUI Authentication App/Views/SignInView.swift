@@ -9,34 +9,28 @@ import SwiftUI
 
 struct SignInView: View {
     
-    @State var isTextFieldActive: Bool = false
-    @Binding var email: String
-    @Binding var password: String
-    @Binding var remember: Bool
-    @Binding var showSignUp: Bool
-    @State var showForgotPassword: Bool = false
+    @State private var email: String = ""
+    @State private var password: String = ""
+    @State private var remember: Bool = false
+    @State private var showSignUp: Bool = false
+    @State private var showForgotPassword: Bool = false
     
     var body: some View {
         VStack(spacing: 20) {
-            TopView(title: "Welcome Back", details: "Please login in to your account.")
-            InfoTFView(title: "Email", text: $email)
-                .padding(.top, isTextFieldActive ? 15 : 0)
-                .onReceive(NotificationCenter.default.publisher(for: .textFieldFocused)) { _ in
-                    isTextFieldActive = true
-                }
-                .onReceive(NotificationCenter.default.publisher(for: .textFieldUnfocused)) { _ in
-                    isTextFieldActive = false
-                }
-            VStack {
+            TopView(title: "Welcome Back", details: "Please login to your account.")
+                    
+            VStack(spacing: 35) {
+                InfoTFView(title: "Email", text: $email)
                 PasswordTFView(title: "Password", text: $password)
             }
+            .padding(.top, 20)
+            
             Spacer()
         }
-        .animation(.spring, value: isTextFieldActive)
+        .animation(.spring(), value: email)
     }
-    
 }
 
 #Preview {
-    SignInView(email: .constant(""), password: .constant(""), remember: .constant(true), showSignUp: .constant(true))
+    SignInView()
 }
