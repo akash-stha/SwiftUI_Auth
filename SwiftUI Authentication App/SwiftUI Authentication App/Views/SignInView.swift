@@ -21,7 +21,24 @@ struct SignInView: View {
                     
             VStack(spacing: 35) {
                 InfoTFView(title: "Email", text: $email)
-                PasswordTFView(title: "Password", text: $password)
+                PasswordTFView(title: "Password", secureText: $password)
+                HStack {
+                    Toggle(isOn: $remember) {
+                        Text("Remember me here")
+                    }
+                    .toggleStyle(RememberMeView())
+                    
+                    Spacer()
+                    
+                    Button {
+                        
+                    } label: {
+                        Text("Forgot Password?")
+                    }
+                    .tint(.primary)
+
+                }
+                .padding(.horizontal, 10)
             }
             .padding(.top, 20)
             

@@ -10,34 +10,54 @@ import SwiftUI
 struct PasswordTFView: View {
     
     var title: String
-    @Binding var text: String
+    @Binding var secureText: String
     @FocusState var isActive: Bool
     @State var showPassword: Bool = false
     
     var body: some View {
         ZStack(alignment: .leading) {
-            SecureField(isActive ? "Enter your password" : "", text: $text)
-                .padding(.horizontal, 10)
-                .frame(maxWidth: .infinity, maxHeight: 55)
-                .background(Color.gray.opacity(0.3), in: RoundedRectangle(cornerRadius: 16))
-                .focused($isActive)
+            
+            
+            if showPassword {
+                TextField(isActive ? "Enter your password" : "", text: $secureText)
+                    .padding(.horizontal, 10)
+                    .frame(maxWidth: .infinity, maxHeight: 55)
+                    .background(Color.gray.opacity(0.3), in: RoundedRectangle(cornerRadius: 16))
+                    .focused($isActive)
+            } else {
+                SecureField(isActive ? "Enter your password" : "", text: $secureText)
+                    .padding(.horizontal, 10)
+                    .frame(maxWidth: .infinity, maxHeight: 55)
+                    .background(Color.gray.opacity(0.3), in: RoundedRectangle(cornerRadius: 16))
+                    .focused($isActive)
+            }
             
             Text(title)
                 .font(.system(size: 25))
                 .padding(.horizontal, 10)
-                .offset(y: (isActive || !text.isEmpty) ? -50 : 0)
-                .scaleEffect((isActive || !text.isEmpty) ? 0.8 : 1.0, anchor: .leading)
-                .animation(.spring(), value: isActive || !text.isEmpty)
+                .offset(y: (isActive || !secureText.isEmpty) ? -50 : 0)
+                .scaleEffect((isActive || !secureText.isEmpty) ? 0.8 : 1.0, anchor: .leading)
+                .animation(.spring(), value: isActive || !secureText.isEmpty)
                 .onTapGesture {
                     isActive = true
                 }
         }
         .padding(.horizontal, 10)
+        .overlay(alignment: .trailing) {
+            Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
+                .padding(16)
+                .padding(.trailing, 10)
+                .contentShape(Rectangle())
+                .foregroundStyle(showPassword ? .primary : .secondary)
+                .onTapGesture {
+                    showPassword.toggle()
+                }
+        }
     }
 }
 
 #Preview {
-    PasswordTFView(title: "Test", text: .constant(""))
+    PasswordTFView(title: "Test", secureText: .constant(""))
 }
 
 
