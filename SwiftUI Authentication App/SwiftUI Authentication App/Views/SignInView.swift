@@ -36,9 +36,37 @@ struct SignInView: View {
                         Text("Forgot Password?")
                     }
                     .tint(.primary)
-
                 }
                 .padding(.horizontal, 10)
+                .padding(.top, -10)
+                
+                SignInButtonView(title: "Log In") {
+                    
+                }
+                .padding(.top, 30)
+                
+                OrView()
+                
+                HStack(spacing: 70) {
+                    SignInAccountsView(image: .apple, action: {})
+                    SignInAccountsView(image: .google, action: {})
+                    SignInAccountsView(image: .email, action: {})
+                }
+                
+                Spacer()
+                
+                Button {
+                    email = ""
+                    password = ""
+                    withAnimation {
+                        showSignUp.toggle()
+                    }
+                } label: {
+                    Text("Don't have an account? ")
+                        .foregroundStyle(.gray)
+                    + Text("Register").bold()
+                }
+                .tint(.primary)
             }
             .padding(.top, 20)
             
