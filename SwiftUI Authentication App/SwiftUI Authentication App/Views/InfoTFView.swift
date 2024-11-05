@@ -19,8 +19,10 @@ struct InfoTFView: View {
             ZStack(alignment: .leading) {
                 TextField(isActive ? "Enter your email" : "", text: $text)
                     .padding(.horizontal, 10)
-                    .frame(maxWidth: .infinity, maxHeight: 55)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 55)
                     .keyboardType(.emailAddress)
+                    .textInputAutocapitalization(.never)
                     .focused($isActive)
                     .background(Color.gray.opacity(0.3), in: RoundedRectangle(cornerRadius: 16))
                     .onChange(of: text) { oldValue, newValue in

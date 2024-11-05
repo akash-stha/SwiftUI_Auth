@@ -19,7 +19,8 @@ struct SignInButtonView: View {
             Text(title)
                 .foregroundStyle(.black)
                 .font(.title2.bold())
-                .frame(maxWidth: .infinity, maxHeight: 55)
+                .frame(maxWidth: .infinity)
+                .frame(height: 55)
                 .background(.white, in: RoundedRectangle(cornerRadius: 16))
         }
         .padding(.horizontal, 10)
