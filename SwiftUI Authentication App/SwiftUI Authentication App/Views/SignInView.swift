@@ -28,6 +28,7 @@ struct SignInView: View {
                         .easeInOut(duration: 0.1).repeatCount(3, autoreverses: true),
                         value: shakeEmail
                     )
+                    .padding(.trailing, 10)
                 
                 PasswordTFView(title: "Password", secureText: $password)
                     .offset(x: shakePassword ? -10 : 10) // Apply shake effect on offset
@@ -35,6 +36,9 @@ struct SignInView: View {
                         .easeInOut(duration: 0.1).repeatCount(3, autoreverses: true),
                         value: shakePassword
                     )
+                    .padding(.trailing, 10)
+                
+                PasswordValidationView(text: $password)
                 
                 HStack {
                     Toggle(isOn: $remember) {
@@ -51,8 +55,8 @@ struct SignInView: View {
                     }
                     .tint(.primary)
                 }
-                .padding(.horizontal, 10)
-                .padding(.top, -10)
+                .padding(.horizontal, 20)
+                .padding(.top, -50)
                 
                 SignInButtonView(title: "Log In") {
                     if !email.isEmpty && !password.isEmpty {
@@ -67,7 +71,7 @@ struct SignInView: View {
                         }
                     }
                 }
-                .padding(.top, 30)
+                .padding(.top, 10)
                 
                 OrView()
                 
