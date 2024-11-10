@@ -9,10 +9,13 @@ import SwiftUI
 
 @main
 struct SwiftUI_Authentication_App: App {
+    
+    @State private var isPresented: Bool = false
+    
     var body: some Scene {
         WindowGroup {
-//            ContentView()
-            SignInView()
+            ContentView()
+//            SignInView()
                 .preferredColorScheme(.dark)
         }
     }
